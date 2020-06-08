@@ -6,8 +6,7 @@ post_request2='&searchbtn=Search&propertyNumber=&propertyName=&billYear=&billTyp
 j=()
 while read name; do
 	j+=($name)
-#done < formatted-names.txt
-done < <(sort <(ls tax-records) <(ls tax-records) formatted-names.txt | uniq -u | sed -E "s/'//")
+done < <(comm -13 <(ls tax-records) formatted-names.txt)  # find all items that need to be downloaded (in foratted-names.txt), but haven't been downloaded already (in ls tax-records)
 
 cd tax-records
 wget -q --keep-session-cookies --save-cookies cookies.txt --delete-after "https://www.mytaxbill.org/inet/bill/home.do?town=glastonbury"
