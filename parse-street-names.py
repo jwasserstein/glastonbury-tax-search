@@ -7,7 +7,7 @@ def grab_street_name(html):
 	a = s.find_all('a', {'href': re.compile('Streets.aspx\?Name=[A-Z]*')})	
 	ret = []
 	for i in a:
-		ret.append(i.get_text())
+		ret.append(i.get_text().replace(' ', '+'))
 	return ret
 
 if __name__ == '__main__':
