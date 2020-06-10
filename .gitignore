@@ -2,3 +2,5 @@ voter-records/
 *.swp
 tax-records/
 street-records/
+voter-records-street/
+.DS_Store
