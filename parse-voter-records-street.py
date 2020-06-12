@@ -12,10 +12,17 @@ if __name__ == '__main__':
 			names += s.find_all('span', {'itemprop': 'name'})
 
 	with open('names-street.txt', 'w') as wfh:
-		for j in names:
-			formatted_name = j.get_text().split(' ')
-			if len(formatted_name) == 3:  # if middle initial/name is present
-				formatted_name = '+'.join([formatted_name[2], formatted_name[0]])
+		fnames = []
+		for j in names:  # format names before saving them
+			n = j.get_text().split(' ')
+			if len(n) == 3:  # if middle initial/name is present
+				n = '+'.join([n[2], n[0]])
 			else:
-				formatted_name = '+'.join([formatted_name[1], formatted_name[0]])
-			wfh.write('{}\n'.format(formatted_name))
+				n = '+'.join([n[1], n[0]])
+			n = n.replace("'", "")
+			fnames.append(n)
+
+		fnames = list(set(fnames))  # remove duplicates	
+		fnames.sort()
+		for k in fnames:
+			wfh.write('{}\n'.format(k))
